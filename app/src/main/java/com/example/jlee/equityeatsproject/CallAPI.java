@@ -4,50 +4,35 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import org.json.*;
+import java.io.BufferedReader;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import android.os.StrictMode;
+
+
 
 public class CallAPI extends ActionBarActivity {
 
-
-
-//link to iTunes API
-
-    public static String urlBase = "https://itunes.apple.com/search?";
-
-
-
-    //get user input string
-
-    public String getParameterKey(String search)
-
-    {
-        // replace all spaces with "+"
-
-        for (int i= 0; i< search.length(); i++)
-        {
-
-            char searchIndex= search.charAt(i);
-            if (searchIndex == ' ')
-            {
-               searchIndex = '+';
-
-            }
-        }
-
-        String key1= "term";
-        String key2= "country";
-
-
-        String parameterKey = "urlBase" + "key1" + "=" + "search"+ "&" + "key2" + "=" + "US";
-        System.out.println(parameterKey);
-        return parameterKey;
-    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_api);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        String output =GetURL.getParameterKey("jessica+lee");
+
+        TextView t= (TextView)findViewById(R.id.FromITUNES);
+        t.setText(output);
+
+
+
     }
 
 
