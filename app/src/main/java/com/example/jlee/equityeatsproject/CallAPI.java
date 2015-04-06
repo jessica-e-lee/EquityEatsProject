@@ -35,15 +35,16 @@ public class CallAPI extends ActionBarActivity {
         String searchFor = MainActivity.searchFor;
 
         output = GetURL.getParameterKey(searchFor);
+        // check if list is empty
         if (output!=null) {
             getListView();
         }
     }
 
 
+    // use list adapter to view array in listView
 
         protected void getListView() {
-
             ArrayAdapter adapter = new ArrayAdapter<String>(
                     this,
                 android.R.layout.simple_list_item_1, output);
@@ -67,17 +68,6 @@ public class CallAPI extends ActionBarActivity {
         return true;
     }
 
-  //  @Override
-  // public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-     // int id = item.getItemId();
 
-      //  noinspection SimplifiableIfStatement
-     //        return true;
-      // }
-
-      //  return super.onOptionsItemSelected(item);
    }
 

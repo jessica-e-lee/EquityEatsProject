@@ -23,7 +23,7 @@ public class GetURL {
 
 
     public static ArrayList<String> getParameterKey(String search)  {
-
+        // turn search Name Name to Name+Name for search parameter
         String parameters = search.replaceAll(" ", "+");
 
         String urlBase = "https://itunes.apple.com/search?";
@@ -35,21 +35,19 @@ public class GetURL {
         URL url;
         StringBuilder builder;
 
+        // initialize variables
+
         String line;
-        String output = "";
-        String songName;
         JSONArray bigArray = null;
-        JSONObject individualObject = null;
         JSONObject json2;
-        JSONObject singleResponse= null;
-        String wrapperType= "";
         String artistName="";
         String kind = "";
-        int artistId = 0;
-        int trackId = 0;
         String collectionName = "";
         String trackName = "";
-        //String[] responseList = {"empty"};
+        double price = 0;
+        String genre= "";
+        double collectionPrice;
+        String output = "";
         ArrayList<String> responseList = new ArrayList<>();
 
         try {
@@ -78,27 +76,22 @@ public class GetURL {
                 arrays[i]=childJSONObject;
 
             }
-
+                // create each individual response in response lost
                 for (int j = 0; j < arrays.length; j++) {
 
                     JSONObject child = arrays[j];
 
-                    wrapperType = child.getString("wrapperType");
                     artistName = child.getString("artistName");
                     kind = child.getString("kind");
-                    trackId = child.getInt("trackId");
                     trackName = child.getString("trackName");
-
-                    // singleResponse = new JSONObject();
-                    // singleResponse.put("wrapperType", wrapperType);
-                    //singleResponse.put("artistName", artistName);
-                    // singleResponse.put("kind", kind);
-                    // singleResponse.put("trackId", trackId);
-                    //singleResponse.put ("trackName", trackName);
-                    //   String result = singleResponse.toString();
-                    String temp = "wrapperType: " + wrapperType + "\n" + "artistName: " + artistName +
-                            "\n" + "kind: " + kind + "\n" + "trackId: " + trackId + "\n" + "trackName: " +
-                            trackName + "\n" ;
+                    collectionName = child.getString("collectionName");
+                    genre = child.getString("primaryGenreName");
+                    price= child.getDouble("trackPrice");
+                    collectionPrice = child.getDouble("collectionPrice");
+                    String temp = ("Kind: " + kind + "\n" + "Artist: " + artistName +
+                            "\n" + "Track Name: " + trackName +  "\n" + "Album: " + collectionName +
+                            "\n" + "Genre: " + genre + "\n" + "Track Price: $" +
+                            price + "\n" + "Album Price: $" + collectionPrice + "\n");
 
                     responseList.add(temp);
 
@@ -110,10 +103,6 @@ public class GetURL {
             output = "We could not process your request";
 
         }
-       // catch (IOException e) {
-        //    output = "We could not process your request";
-       // }
-
         return responseList;
     }
 
